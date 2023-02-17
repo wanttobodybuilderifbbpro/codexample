@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>천아용인 생일 이미지 생성기</title>
+
+    <script type="text/javascript">
+      function setFont() {
+        const myFont = new FontFace("myeongjo", "url(kangwon.woff)");
+
+        myFont.load().then((font) => {
+          document.fonts.add(font);
+
+          console.log("Font loaded");
+        });
+      }
+      function reset(name) {
+        setFont();
+
+        var c = document.getElementById("imageCanvas");
+        var ctx = c.getContext("2d");
+        var img1 = new Image();
+ 
+        img1.onload = function () { 
+          ctx.drawImage(img1, 0, 0);
+     
+          ctx.font = "70px myeongjo";
+          ctx.fillText(name + " 님", 310, 210);
+        };
+
+        img1.src = "bday.png";
+      }
+
+      function DownloadCanvasAsImage(){
+    let downloadLink = document.createElement('a');
+    downloadLink.setAttribute('download', 'CanvasAsImage.png');
+    let canvas = document.getElementById('myCanvas');
+    canvas.toBlob(function(blob) {
+      let url = URL.createObjectURL(blob);
+      downloadLink.setAttribute('href', url);
+      downloadLink.click();
+    });
+}
+    </script>
+  </head>
+
+  <body onload="setFont()">
+    <h1>천아용인 생일축하 이미지 생성기</h1>
+
+    <blockquote>지인들에게 보내는 용도로 사용하시길.<br>아래 박스에 이름을 치고 엔터를 치세요. <br>나쁜용도로 쓰지 마세요. 책임 안집니다.</blockquote>
+
+    <input type="text" onchange="reset(this.value);" />
+
+    <p>
+      <canvas id="imageCanvas" width="900" height="900"></canvas>
+    </p>
+  </body>
+</html>
